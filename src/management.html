@@ -1,0 +1,14 @@
+<template>
+    <p>This is your document list</p>
+    <ul>
+        <li repeat.for="todo of todoList">
+            <button click.delegate="removeTodo(todo)" ${!todo.done ? 'disabled'}>Remove</button>
+            <input type="checkbox" checked.bind="todo.done"/>
+            <span css="text-decoration: ${todo.done ? 'line-through' : 'none'}">
+            ${todo.description}
+            </span>
+        </li>
+    </ul>
+    <input type="text" value.bind="newItem" /><button click.delegate="addTodo()">Add</button>
+
+</template>

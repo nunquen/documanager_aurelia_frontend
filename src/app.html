@@ -1,0 +1,12 @@
+<template>
+  <h1>Document manager for Propylon (main app)</h1>
+  <ul>
+      <li><a route-href="home">Home</a></li>
+      <li><a route-href="management">Management</a></li>
+      <li><a route-href="route: post; params.bind: {slug: 'new_post'}">New Post</a></li>
+      <li><a route-href="route: post; params.bind: {slug: 'list_posts'}">See all Post</a></li>
+      <li><a route-href="route: post; params.bind: {slug: 'delete_post'}">Delete a previous Post</a></li>
+  </ul>
+  <hr>
+  <router-view></router-view>
+</template>
