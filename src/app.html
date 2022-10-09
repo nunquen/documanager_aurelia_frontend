@@ -1,6 +1,23 @@
 <template>
-  <h1>Document manager for Propylon (main app)</h1>
-  <ul>
+
+  <div class="container">
+    <nav class="nav">
+      <a class="nav-link ${ router.currentInstruction.config.name === 'home' ? 'active' : '' }" href="#">Home</a>
+      <a class="nav-link" href="#" if.bind="current_user">Publish Document</a>
+      <a class="nav-link ${ router.currentInstruction.config.name === 'management' ? 'login' : '' }" href="#" 
+        route-href="management" if.bind="current_user">My Documents
+      </a>
+      <a class="nav-link ${ router.currentInstruction.config.name === 'login' ? 'active' : '' }" 
+        route-href="login" if.bind="!current_user">Log In
+      </a>
+      <a class="nav-link" href="#" if.bind="current_user" click.delegate="logout()">Log Out</a>
+      <p>Welcome, ${current_user || 'Guest'}</p>
+    </nav>
+  </div>
+
+  <h1>Document manager for Propylon</h1>
+  <hr>
+  <!-- ul>
       <li><a route-href="home">Home</a></li>
       <li><a route-href="management">Management</a></li>
       <li><a route-href="route: post; params.bind: {slug: 'new_post'}">New Post</a></li>
@@ -8,5 +25,18 @@
       <li><a route-href="route: post; params.bind: {slug: 'delete_post'}">Delete a previous Post</a></li>
   </ul>
   <hr>
+  <ul>
+    <li repeat.for="user of user_list">
+        <span css="text-decoration: ${user.documents.length == 0 ? 'line-through' : 'none'}">
+        ${user.get_name()}
+        <ul>
+          <li repeat.for="document of user.get_documents()">
+              <span">
+              ${document.get_name()}:  ${document.get_file_uploaded()}
+              </span>
+          </li>
+        </span>
+    </li>
+  </ul -->
   <router-view></router-view>
 </template>
