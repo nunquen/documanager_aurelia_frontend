@@ -1,22 +1,32 @@
+import { inject } from 'aurelia-framework';
+import { User } from "./user";
+
+@inject(User)
 export class AuthService{
 
-    constructor(){
+    constructor(User){
         this.delay = 100;
         this.current_user = null;
-        this.users = ["Gemma", "Brendan", "Saul"];
+        this.User = User;
+        this.users = [];
     }
 
-    login(name){
+    loadUsersJson(){
+        return this.User.get_remote_users();
+    }
+
+    async login(name){
+        this.users = await this.User.get_remote_users();
+
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                // TODO: get remote users
-                if (this.users.includes(name)){
-                    this.current_user = name;
-                    // TODO: return user dto
-                    resolve({ user: name });
-                } else {
-                    reject(new Error('Invalid credentials!'));
+                for (var i = 0; i < this.users.length; i++){
+                    if (this.users[i].name == name){
+                        this.current_user = this.users[i];
+                        resolve({ user: this.users[i] });
+                    }
                 }
+                reject(new Error('Invalid credentials!'));
             }, this.delay);
         });
     }

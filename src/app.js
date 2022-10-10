@@ -2,7 +2,7 @@
 import { Document } from "./services/document";
 import { Index } from "./index";
 import { inject } from 'aurelia-framework';
-import { Management } from "./management";
+import { ListDocuments } from "./list_documents";
 import { moment } from "../node_modules/moment/moment";
 import { Post } from "./post";
 import { User } from "./services/user";
@@ -50,7 +50,7 @@ export class App {
       { route: '', name: 'home', moduleId:'index', title:'Home' },
       { route: 'login', name: 'login', moduleId:'auth/login', title:'Login' },
       { route: 'logout', name: 'logout', moduleId:'auth/logout', title:'Logout' },
-      { route: 'management', name: 'management', moduleId:'management', title:'Management' },
+      { route: 'list_documents', name: 'list_documents', moduleId:'list_documents', title:'List Documents' },
       { route: 'post/:slug', name: 'post', moduleId:'post', title:'View Post' }
     ]);
   }
@@ -64,27 +64,12 @@ export class App {
     var doc = null;
 
     for (var i = 0; i < this.users.length; i++){
-      console.log(`User ${this.users[i].name} with id ${this.users.id}`);
       user = new UserDto(
         this.users[i]["id"],
         this.users[i]["name"],
         this.users[i]["password"]);
 
-      doc_list = [];
-      docs = await this.loadDocumentsJson(user.get_id())
-      doc = null;
-      for (var i_doc = 0; i_doc < docs.length; i_doc++){
-        doc = new DocumentDto(
-          docs[i_doc]["file_uploaded_b"],
-          docs[i_doc]["name_s"],
-          docs[i_doc]["url_s"],
-          docs[i_doc]["created_at_dt"],
-          docs[i_doc]["modified_at_dt"]
-        )
-        doc_list.push(doc)
-      }
-      console.log(`Docs for user ${user.get_name()}: ` + this.doc_list);
-      user.set_documents(doc_list);
+      
       this.user_list.push(user);
       
     }

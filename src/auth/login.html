@@ -1,12 +1,21 @@
 <template>
-  <h1>Login</h1>
-
-  <div class="alert alert-danger" if.bind="error">
-    ${ error }
+  
+  <div class="container">
+    <header class="justify-content-center ">
+      <div class="alert alert-danger" if.bind="error">
+        ${ error }
+      </div>
+    
+      <form class="ms-5" submit.delegate="login()">
+        <h3>Login</h3>
+        <div class="input-group mb-2 w-25 mx-1">
+          <span class="input-group-text" id="basic-addon1">@</span>
+          <input value.bind="name" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+    </header>
   </div>
+  
 
-  <form submit.delegate="login()">
-    <input type="text" placeholder="Your User" value.bind="name"/>
-    <button type="submit">Log in</button>
-  </form>
 </template>

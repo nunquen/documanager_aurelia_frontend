@@ -1,22 +1,38 @@
 <template>
 
   <div class="container">
-    <nav class="nav">
-      <a class="nav-link ${ router.currentInstruction.config.name === 'home' ? 'active' : '' }" href="#">Home</a>
-      <a class="nav-link" href="#" if.bind="current_user">Publish Document</a>
-      <a class="nav-link ${ router.currentInstruction.config.name === 'management' ? 'login' : '' }" href="#" 
-        route-href="management" if.bind="current_user">My Documents
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4">Documanager</span>
       </a>
-      <a class="nav-link ${ router.currentInstruction.config.name === 'login' ? 'active' : '' }" 
-        route-href="login" if.bind="!current_user">Log In
-      </a>
-      <a class="nav-link" href="#" if.bind="current_user" click.delegate="logout()">Log Out</a>
-      <p>Welcome, ${current_user || 'Guest'}</p>
-    </nav>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a href="#" class="nav-link ${ router.currentInstruction.config.name === 'home' ? 'active' : '' }" 
+          aria-current="page">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" if.bind="current_user">New Document</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ${ router.currentInstruction.config.name === 'list_documents' ? 'active' : '' }" href="#" 
+            route-href="list_documents" if.bind="current_user">My Documents
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ${ router.currentInstruction.config.name === 'login' ? 'active' : '' }" 
+            route-href="login" if.bind="!current_user">Log In
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" if.bind="current_user" click.delegate="logout()">Log Out</a>
+        </li>
+        <p class="mt-2 pl-2" style="color:DarkGray">Welcome, ${current_user.name || 'Guest'}</p>
+      </ul>
+    </header>
   </div>
 
-  <h1>Document manager for Propylon</h1>
-  <hr>
   <!-- ul>
       <li><a route-href="home">Home</a></li>
       <li><a route-href="management">Management</a></li>

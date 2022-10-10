@@ -1,0 +1,33 @@
+<template>
+    <div class="container">
+        
+        <div class="justify-content-center">
+            <h3>Published documents</h3>
+            <table class="table table-hover">
+                <caption>${document_list.length == 0 ? "No documents to show": "Published documents"}</caption>
+                <thead>
+                    <tr class="table-primary">
+                        <th scope="col">Name</th>
+                        <th scope="col">Url</th>
+                        <th scope="col">Last modification</th>
+                        <th scope="col">Total revisions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="document of document_list" click.delegate="document_detail(document)">
+                    <td>${document.name}</td>
+                    <td>
+                        <a class="nav-link" href="#" if.bind="document_list">
+                            ${document.url}
+                        </a>
+                        
+                    <td>${document.created_at}</td>
+                    <td>${document.revisions.length}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--input type="text" value.bind="newItem" /><button click.delegate="addTodo()">Add</button-->
+        </div>
+    </div>
+
+</template>
