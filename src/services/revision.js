@@ -4,9 +4,9 @@ import moment from "../../node_modules/moment/moment";
 import config_file from "../config";
 
 @inject(HttpClient)
-export class User {
+export class Revision {
     constructor(HttpClient) {
-        this.users = null;
+        this.revisions = null;
         this.httpClient = HttpClient;
         this.current_date = `${moment().format("YYYY-MM-DD")}`;
 
@@ -15,14 +15,14 @@ export class User {
         });
     }
 
-    async get_remote_users(){
-        return this.httpClient.fetch("users")
+    async get_remote_revisions(document_id){
+        return this.httpClient.fetch(`document/${document_id}/revisions`)
             .then(async (response) => await (response.json()))
-            .then(users => {
-                return JSON.parse(json(users));
+            .then(revisions => {
+                return JSON.parse(json(revisions));
             })
             .catch(error => {
-                console.error(error);
+                console.log('Error retrieving revisions.');
                 return [];
             });
     }

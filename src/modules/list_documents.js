@@ -1,10 +1,8 @@
-import { Todo, TODO } from "./propylon/entity/todo";
 import { inject } from 'aurelia-framework';
-import { Document } from "./services/document";
-import { User } from "./services/user";
-import { UserDto } from './backend/dtos/user-dto';
-import { DocumentDto } from './backend/dtos/document-dto';
-import { AuthService } from './services/auth-service';
+import { Document } from "../services/document";
+import { User } from "../services/user";
+import { DocumentDto } from '../backend/dtos/document-dto';
+import { AuthService } from '../services/auth-service';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
@@ -44,13 +42,18 @@ export class ListDocuments {
 
     for (var i_doc = 0; i_doc < docs.length; i_doc++){
       doc = new DocumentDto(
+        docs[i_doc]["id"],
         docs[i_doc]["file_uploaded_b"],
         docs[i_doc]["name_s"],
         docs[i_doc]["url_s"],
         docs[i_doc]["created_at_dt"],
-        docs[i_doc]["modified_at_dt"]
+        docs[i_doc]["modified_at_dt"],
+        docs[i_doc]["revisions_i"],
       )
-      this.document_list.push(doc)
+
+      console.log(`Document "${docs.name}" has ${doc.revisions} revisions`);
+
+      this.document_list.push(doc);
     }
     console.log(`ListDocuments -> Docs for user ${this.current_user.name}: ${this.document_list.length} docs`);
     this.current_user.documents = this.document_list;
@@ -61,19 +64,12 @@ export class ListDocuments {
   async bind(){
   }
 
-  detached() {
-    this.subscription.dispose();
-  }
-
-
   document_detail(document){
-    console.log(`document_detail-> ${document.name}`);
+    this.router.navigateToRoute(`detail_document/${document.id}`);
   }
 
-  removeTodo(todo){
-    if (todo.done){
-      this.todoList.splice(this.todoList.indexOf(todo), 1);
-    }
+  add_document(current_user){
+    console.log(`TODO: Adding a new document for user ${current_user.name}`)
   }
 
   loadDocumentsJson(user_id){

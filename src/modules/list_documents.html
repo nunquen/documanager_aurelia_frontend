@@ -7,6 +7,7 @@
                 <caption>${document_list.length == 0 ? "No documents to show": "Published documents"}</caption>
                 <thead>
                     <tr class="table-primary">
+                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Url</th>
                         <th scope="col">Last modification</th>
@@ -14,19 +15,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="document of document_list" click.delegate="document_detail(document)">
+                    <tr repeat.for="document of document_list">
+                    <td>${document.id}</td>
                     <td>${document.name}</td>
-                    <td>
-                        <a class="nav-link" href="#" if.bind="document_list">
-                            ${document.url}
-                        </a>
-                        
+                    <td><a route-href="route: detail_document; params.bind: {document_id:document.id}"> ${document.url}</a></td>    
                     <td>${document.created_at}</td>
-                    <td>${document.revisions.length}</td>
+                    <td>${document.revisions}</td>
                     </tr>
                 </tbody>
             </table>
-            <!--input type="text" value.bind="newItem" /><button click.delegate="addTodo()">Add</button-->
+            <form class="ms-5" submit.delegate="add_document(current_user)">
+                <button type="submit" class="btn btn-primary">Add a decument</button>
+            </form>
         </div>
     </div>
 

@@ -2,9 +2,10 @@
 import { Document } from "./services/document";
 import { Index } from "./index";
 import { inject } from 'aurelia-framework';
-import { ListDocuments } from "./list_documents";
+import { ListDocuments } from './modules/list_documents'
+import { DetailDocument } from './modules/detail_document'
 import { moment } from "../node_modules/moment/moment";
-import { Post } from "./post";
+import { Post } from "./docs";
 import { User } from "./services/user";
 import { UserDto } from './backend/dtos/user-dto';
 import { DocumentDto } from './backend/dtos/document-dto';
@@ -45,13 +46,16 @@ export class App {
   configureRouter(config, router) {
     this.router = router;
     config.title = 'Documanager';
+    config.options.pushState = true;
     
     config.map([
       { route: '', name: 'home', moduleId:'index', title:'Home' },
       { route: 'login', name: 'login', moduleId:'auth/login', title:'Login' },
       { route: 'logout', name: 'logout', moduleId:'auth/logout', title:'Logout' },
-      { route: 'list_documents', name: 'list_documents', moduleId:'list_documents', title:'List Documents' },
-      { route: 'post/:slug', name: 'post', moduleId:'post', title:'View Post' }
+      { route: 'list_documents', name: 'list_documents', moduleId:'modules/list_documents', title:'List Documents' },
+      { route: 'docs/:url', name: 'docs', moduleId:'docs', title:'View Documents' },
+      { route: 'detail_document', name: 'detail_document', moduleId:'modules/detail_document', title:'Document detail' },
+      
     ]);
   }
   

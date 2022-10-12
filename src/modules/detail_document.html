@@ -1,0 +1,79 @@
+<template>
+  <div class="container">
+      
+    <div class="justify-content-center">
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-1 bg-primary"></div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4 align-items-start">
+                            <h5><b>Document:</b></h5>
+                        </div>
+                        <div class="col">
+                            <p>${document.name}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col bg-primary"></div>
+            </div>
+            <div class="row">
+                <div class="col-1 bg-primary"></div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4">
+                            <h5><b>Url:</b></h5>
+                        </div>
+                        <div class="col">
+                            <p>${document.url}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col bg-primary"></div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="justify-content-center">
+        <h3>Released revisions</h3>
+          <table class="table table-hover">
+              <caption>${document.revisions == 0 ? "No revisions to show": "Document's revisions"}</caption>
+              <thead>
+                  <tr class="table-primary">
+                      <th scope="col">Version</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Comment</th>
+                      <th scope="col">Created at</th>
+                      <th scope="col">Last modification at</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr click.delegate="revision_detail(document, null)">
+                    <td>
+                        <!--a route-href="route: docs; params.bind: {url: document.url, version: '0', document_id:document.id}">0</a-->
+                        0
+                    </td>
+                    <td>---</td>
+                    <td>Original version</td>
+                    <td>${document.created_at}</td>
+                    <td>${document.modified_at}</td>
+                </tr>
+                <tr repeat.for="revision of document.revision_list" click.delegate="revision_detail(document, revision)">
+                    <!--td><a route-href="route: docs; params.bind={url: document.url, version: revision.number, document_id: document.id}">${revision.number}</a></td-->
+                    <td>${revision.number}</td>
+                    <td>${revision.title}</td>
+                    <td>${revision.comment}</td>
+                    <td>${revision.created_at}</td>
+                    <td>${revision.modified_at || "No modification"}</td>
+                </tr>
+              </tbody>
+            </table>
+          <!--input type="text" value.bind="newItem" /><button click.delegate="addTodo()">Add</button-->
+            <form class="ms-5" submit.delegate="add_revision(document)">
+                <button type="submit" class="btn btn-primary">Add a revision</button>
+            </form>
+      </div>
+  </div>
+
+</template>
