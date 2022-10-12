@@ -1,3 +1,4 @@
 export default {
-	baseUrl: 'http://localhost:8000/v1/',
+	base_server_url: 'http://localhost:8000',
+	base_api_server_url: 'http://localhost:8000/v1/',
 };

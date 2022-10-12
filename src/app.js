@@ -3,12 +3,12 @@ import { Document } from "./services/document";
 import { Index } from "./index";
 import { inject } from 'aurelia-framework';
 import { ListDocuments } from './modules/list_documents'
+import { Doc } from "./modules/doc";
 import { DetailDocument } from './modules/detail_document'
 import { moment } from "../node_modules/moment/moment";
-import { Post } from "./docs";
 import { User } from "./services/user";
-import { UserDto } from './backend/dtos/user-dto';
 import { DocumentDto } from './backend/dtos/document-dto';
+import { UserDto } from './backend/dtos/user-dto';
 import { AuthService } from './services/auth-service';
 import { login } from './auth/login';
 import { EventAggregator } from 'aurelia-event-aggregator';
@@ -53,9 +53,9 @@ export class App {
       { route: 'login', name: 'login', moduleId:'auth/login', title:'Login' },
       { route: 'logout', name: 'logout', moduleId:'auth/logout', title:'Logout' },
       { route: 'list_documents', name: 'list_documents', moduleId:'modules/list_documents', title:'List Documents' },
-      { route: 'docs/:url', name: 'docs', moduleId:'docs', title:'View Documents' },
+      { route: 'docs/:url', name: 'docs', moduleId:'modules/doc', title:'View Documents' },
       { route: 'detail_document', name: 'detail_document', moduleId:'modules/detail_document', title:'Document detail' },
-      
+      { route: 'new_document', name: 'new_document', moduleId:'modules/new_document', title:'New Document' },
     ]);
   }
   

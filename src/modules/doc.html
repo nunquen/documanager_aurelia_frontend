@@ -1,0 +1,67 @@
+<template>
+    <div class="container">
+        <form show.bind="show_document">
+            <h1 style="color:rgb(0, 96, 205)">Document</h1>
+            <br>
+            <div class="justify-content-center">
+                <div class="mb-3">
+                    <label for="document_name" class="form-label"><b>Name</b></label>
+                    <input type="text" class="form-control" id="document_name" value=${document.name}>
+                </div>
+                <div class="mb-3">
+                    <label for="document_url" class="form-label"><b>Published url</b></label>
+                    <input type="text" class="form-control" id="document_url" value=${document.url}>
+                </div>
+                <div class="mb-3">
+                    <label for="document_file_name" class="form-label"><b>File name</b></label>
+                    <input type="text" class="form-control" id="document_file_name" value=${document.file_name} disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="document_revision" class="form-label"><b>Revisions so far</b></label>
+                    <input type="text" class="form-control" id="document_revision" value=${document.revisions} disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="download_document" class="form-label">
+                        <a href="${baseUrl}${document.file_uploaded}" download><b>Download original document</b></a>
+                    </label>
+                </div>
+            </div>
+        </form>
+
+        <form show.bind="!show_document">
+            <div class="alert alert-danger" if.bind="revision_error">
+                ${ revision_error }
+            </div>
+            <h1 style="color:rgb(0, 96, 205)">Revision</h1>
+            <br>
+            <div class="justify-content-center">
+                <div class="mb-3">
+                    <label for="revision_title_id" class="form-label"><b>Title</b></label>
+                    <input type="text" class="form-control" id="revision_title_id" value=${revision.title}>
+                </div>
+                <div class="mb-3">
+                    <label for="revision_version" class="form-label"><b>Revision version</b></label>
+                    <input type="text" class="form-control" id="revision_version" value=${revision.number} disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="revision_comment_id" class="form-label"><b>Comments</b></label>
+                    <textarea value.bind=revision.comment class="form-control" id="revision_comment_id" rows="5"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="revision_url" class="form-label"><b>Published url</b></label>
+                    <input type="text" class="form-control" id="revision_url" value=${document.url} disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="revision_file_name" class="form-label"><b>File name</b></label>
+                    <input type="text" class="form-control" id="revision_file_name" value=${revision.file_name} disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="download_revision" class="form-label">
+                        <a href="${baseUrl}${revision.file_uploaded}" download><b>Download this revision</b></a>
+                    </label>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</template>

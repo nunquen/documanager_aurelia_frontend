@@ -10,24 +10,4 @@ export class UserDto {
         this.password = user_password;
         this.documents = [];
     }
-
-    set_documents(documents){
-        this.documents = documents;
-    }
-
-    get_documents(){
-        return this.documents;
-    }
-
-    get_id(){
-        return this.id;
-    }
-
-    get_name(){
-        return this.name;
-    }
-
-    get_password(){
-        return this.password;
-    }
 }

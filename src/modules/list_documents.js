@@ -43,12 +43,15 @@ export class ListDocuments {
     for (var i_doc = 0; i_doc < docs.length; i_doc++){
       doc = new DocumentDto(
         docs[i_doc]["id"],
-        docs[i_doc]["file_uploaded_b"],
+        docs[i_doc]["file_path_s"],
+        docs[i_doc]["file_name_s"],
+        docs[i_doc]["file_type_s"],
         docs[i_doc]["name_s"],
         docs[i_doc]["url_s"],
+        docs[i_doc]["file_uploaded_b"],
         docs[i_doc]["created_at_dt"],
         docs[i_doc]["modified_at_dt"],
-        docs[i_doc]["revisions_i"],
+        docs[i_doc]["revisions_i"]
       )
 
       console.log(`Document "${docs.name}" has ${doc.revisions} revisions`);

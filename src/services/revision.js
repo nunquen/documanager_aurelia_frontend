@@ -11,7 +11,7 @@ export class Revision {
         this.current_date = `${moment().format("YYYY-MM-DD")}`;
 
         HttpClient.configure(config =>{
-            config.withBaseUrl(config_file.baseUrl);
+            config.withBaseUrl(config_file.base_api_server_url);
         });
     }
 
@@ -27,4 +27,15 @@ export class Revision {
             });
     }
 
+    async get_remote_revision_by_id(revision_id){
+        return this.httpClient.fetch(`revision/${revision_id}`)
+            .then(async (response) => await (response.json()))
+            .then(revision => {
+                return JSON.parse(json(revision));
+            })
+            .catch(error => {
+                console.log('Error retrieving single revision.');
+                return {};
+            });
+    }
 }

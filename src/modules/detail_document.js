@@ -30,7 +30,6 @@ export class DetailDocument {
  
   async attached() {
     this.current_user = this.auth_service.current_user;
-    console.log(`DetailDocuments.attached->user: ${this.current_user}`);
     // Subscribing to published user
     try{
       this.subscription = this.ea.subscribe('user', user => {
@@ -50,15 +49,19 @@ export class DetailDocument {
     var remote_doc = await this.loadDocumentByIdJson(this.document_id);
     this.document = new DocumentDto(
       remote_doc["id"],
-      remote_doc["file_uploaded_b"],
+      remote_doc["file_path_s"],
+      remote_doc["file_name_s"],
+      remote_doc["file_type_s"],
       remote_doc["name_s"],
       remote_doc["url_s"],
+      remote_doc["file_uploaded_b"],
       remote_doc["created_at_dt"],
       remote_doc["modified_at_dt"],
-      remote_doc["revisions_i"],
+      remote_doc["revisions_i"]
     )
 
-    console.log("after loadDocumentByIdJson");
+    
+
     try{
       console.log(`DetailDocuments -> listing revisions for document: ${this.document.name}`);
     }catch(error){

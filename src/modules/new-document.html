@@ -1,0 +1,23 @@
+<template>
+  <div class="container">
+      <form submit.delegate="new_document()">
+          <h1 style="color:rgb(0, 96, 205)">New Document</h1>
+          <br>
+          <div class="justify-content-center">
+              <div class="mb-3">
+                  <label for="document_name" class="form-label"><b>Name</b></label>
+                  <input type="text" class="form-control" id="document_name">
+              </div>
+              <div class="mb-3">
+                  <label for="document_url" class="form-label"><b>Publishing url</b></label>
+                  <input type="text" class="form-control" id="document_url">
+              </div>
+              <div class="mb-3">
+                <label for="document_file_name" class="form-label"><b>File name</b></label>
+                <input type="text" class="form-control" id="document_file_name">
+            </div>
+              <button type="submit" class="btn btn-primary">Publish document</button>
+          </div>
+      </form>
+  </div>
+</template>

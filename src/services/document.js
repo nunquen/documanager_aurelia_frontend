@@ -11,7 +11,7 @@ export class Document {
         this.current_date = `${moment().format("YYYY-MM-DD")}`;
 
         HttpClient.configure(config =>{
-            config.withBaseUrl(config_file.baseUrl);
+            config.withBaseUrl(config_file.base_api_server_url);
         });
     }
 
