@@ -19,5 +19,5 @@ aur run
   - Gemma
   - Brendan
   - Saul
-### Note: backend server must be running on http://127.0.0.1:8000/
+### Note: [backend server}(https://github.com/nunquen/documanager_django_backend) must be running on http://127.0.0.1:8000/
 
