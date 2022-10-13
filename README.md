@@ -1,6 +1,6 @@
 # documanager_aurelia_frontend
 # DOCUMANAGER
-A a web frontend made in Aurelia by Saul Maldonado
+A web frontend made in Aurelia by Saul Maldonado
 ## How to build the environment
 1. You must need node.js >= v16.0.4
 2. Install required packages 
@@ -19,5 +19,5 @@ aur run
   - Gemma
   - Brendan
   - Saul
-# Note: backend server must be running on http://127.0.0.1:8000/
+### Note: backend server must be running on http://127.0.0.1:8000/
 
