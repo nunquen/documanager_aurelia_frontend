@@ -14,22 +14,22 @@
         </li>
         <li class="nav-item">
           <a class="nav-link ${ router.currentInstruction.config.name === 'new_document' ? 'active' : '' }"
-            route-href="new_document" class="nav-link" if.bind="current_user">New Document</a>
+            route-href="new_document" class="nav-link" if.bind="user_handler.user_name">New Document</a>
         </li>
         <li class="nav-item">
           <a class="nav-link ${ router.currentInstruction.config.name === 'list_documents' ? 'active' : '' }"
-            route-href="list_documents" if.bind="current_user">My Documents
+            route-href="list_documents" if.bind="user_handler.user_name">My Documents
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link ${ router.currentInstruction.config.name === 'login' ? 'active' : '' }" 
-            route-href="login" if.bind="!current_user">Log In
+            route-href="login" if.bind="!user_handler.user_name">Log In
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" if.bind="current_user" click.delegate="logout()">Log Out</a>
+          <a class="nav-link" href="#" if.bind="user_handler.user_name" click.delegate="logout()">Log Out</a>
         </li>
-        <p class="mt-2 pl-2" style="color:DarkGray"> Welcome, ${current_user.name || 'Guest'}</p>
+        <p class="mt-2 pl-2" style="color:DarkGray"> Welcome, ${user_handler.user_name || 'Guest'}</p>
       </ul>
     </header>
   </div>

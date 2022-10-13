@@ -20,6 +20,11 @@ export class Login {
   activate() {
     this.error = null;
   }
+  attached(){
+    this.user_handler.user_name = null;
+    this.user_handler.user_id = null;
+    this.user_handler.user_password = null;
+  }
 
   login(){
     this.error = null;
