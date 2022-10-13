@@ -5,39 +5,30 @@ import { DocumentDto } from '../backend/dtos/document-dto';
 import { AuthService } from '../services/auth-service';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { UserHandler} from '../auth/user_handler';
 
 require('bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
 
-@inject(AuthService, EventAggregator, Router, User, Document)
+@inject(AuthService, EventAggregator, Router, User, Document, UserHandler)
 export class ListDocuments {
-  constructor(AuthService, EventAggregator, Router, User, Document){
+  constructor(AuthService, EventAggregator, Router, User, Document, UserHandler){
     this.Document = Document;
     this.document_list = [];
     this.auth_service = AuthService;
     this.router = Router;
     this.ea = EventAggregator;
+    this.user_handler = UserHandler;
   }
   
   async attached() {
-    this.current_user = this.auth_service.current_user;
-    // Subscribing to published user
-    try{
-      this.subscription = this.ea.subscribe('user', user => {
-        this.current_user = this.auth_service.current_user;
-    })} catch(error) {
-      console.error(`ListDocuments.attached: ${error}`);
-    }
-    
-    try{
-      console.log(`ListDocuments -> listing documents for user: ${this.current_user.name}`);
-    }catch(error){
-      //If no user authenticated then redirect to home
+    console.log(`ListDocuments.attached -> user_name: ${this.user_handler.user_name}`);
+    if (this.user_handler.user_name == "" || this.user_handler.user_name ==  null) {
       this.router.navigateToRoute('home');
       return;
     }
-    
-    var docs = await this.loadDocumentsJson(this.current_user.id);
+
+    var docs = await this.loadDocumentsJson(this.user_handler.user_id);
     var doc = null;
 
     for (var i_doc = 0; i_doc < docs.length; i_doc++){
@@ -55,13 +46,10 @@ export class ListDocuments {
       )
 
       console.log(`Document "${docs.name}" has ${doc.revisions} revisions`);
-
       this.document_list.push(doc);
     }
-    console.log(`ListDocuments -> Docs for user ${this.current_user.name}: ${this.document_list.length} docs`);
-    this.current_user.documents = this.document_list;
-    this.ea.publish("user", this.current_user);
-    console.log(`ListDocuments -> USer published with documents`);
+
+    console.log(`ListDocuments -> Docs for user ${this.user_handler.user_name}: ${this.document_list.length} docs`);
   }
 
   async bind(){
@@ -80,6 +68,5 @@ export class ListDocuments {
   }
 
   detached() {
-    this.subscription.dispose();
   }
 }

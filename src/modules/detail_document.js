@@ -6,13 +6,14 @@ import { RevisionDto } from '../backend/dtos/revision-dto';
 import { AuthService } from '../services/auth-service';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { UserHandler} from '../auth/user_handler';
 
 require('bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
 
-@inject(AuthService, EventAggregator, Router, Document, Revision)
+@inject(AuthService, EventAggregator, Router, Document, Revision, UserHandler)
 export class DetailDocument {
-  constructor(AuthService, EventAggregator, Router, Document, Revision){
+  constructor(AuthService, EventAggregator, Router, Document, Revision, UserHandler){
     this.Document = Document;
     this.Revision = Revision;
     this.revision_list = [];
@@ -21,6 +22,7 @@ export class DetailDocument {
     this.ea = EventAggregator;
     this.document = null;
     this.document_id = null;
+    this.user_handler = UserHandler;
   }
 
   activate(params){
@@ -29,19 +31,8 @@ export class DetailDocument {
   }
  
   async attached() {
-    this.current_user = this.auth_service.current_user;
-    // Subscribing to published user
-    try{
-      this.subscription = this.ea.subscribe('user', user => {
-        this.current_user = this.auth_service.current_user;
-    })} catch(error) {
-      console.error(`DetailDocuments.attached->user: ${error}`);
-    }
-
-    try{
-      console.log(`DetailDocument -> listing document and revisions for user: ${this.current_user.name}`);
-    }catch(error){
-      //If no user authenticated then redirect to home
+    console.log(`detail_document.attached-> typeof user is ${typeof this.user_handler.user_name}`)
+    if (typeof this.user_handler.user_name == 'object') {
       this.router.navigateToRoute('home');
       return;
     }
@@ -59,8 +50,6 @@ export class DetailDocument {
       remote_doc["modified_at_dt"],
       remote_doc["revisions_i"]
     )
-
-    
 
     try{
       console.log(`DetailDocuments -> listing revisions for document: ${this.document.name}`);
@@ -115,7 +104,6 @@ export class DetailDocument {
   }
 
   detached() {
-    this.subscription.dispose();
   }
 
 }

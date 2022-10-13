@@ -6,13 +6,14 @@ import { DocumentDto } from '../backend/dtos/document-dto';
 import { RevisionDto } from '../backend/dtos/revision-dto';
 import { AuthService } from '../services/auth-service';
 import { Router } from 'aurelia-router';
+import { UserHandler} from '../auth/user_handler';
 
 require('bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
 
-@inject(AuthService, Router, Document, Revision)
+@inject(AuthService, Router, Document, Revision, UserHandler)
 export class Doc {
-    constructor(AuthService, Router, Document, Revision){
+    constructor(AuthService, Router, Document, Revision, UserHandler){
         this.Document = Document;
         this.Revision = Revision;
         this.auth_service = AuthService;
@@ -22,6 +23,7 @@ export class Doc {
         this.show_document = true;
         this.baseUrl = config_file.base_server_url;
         this.revision_error = null;
+        this.user_handler = UserHandler;
     }
     
     activate(params) {

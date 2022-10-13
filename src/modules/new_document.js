@@ -5,19 +5,27 @@ import { DocumentDto } from '../backend/dtos/document-dto';
 import { UserDto } from '../backend/dtos/user-dto';
 import { AuthService } from '../services/auth-service';
 import { Router } from 'aurelia-router';
+import { UserHandler} from '../auth/user_handler';
 
 require('bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
 
-@inject(AuthService, Router, Document)
+@inject(AuthService, Router, Document, UserHandler)
 export class NewDocument {
-  constructor(AuthService, Router, Document) {
-    this.current_user = null;
+  constructor(AuthService, Router, Document, UserHandler) {
     this.Document = Document;
     this.auth_service = AuthService;
     this.router = Router;
     this.document = new DocumentDto();
     this.document_file = null;
+    this.user_handler = UserHandler;
+  }
+
+  attached() {
+    if (this.user_handler.user_name+"" == "" ) {
+      this.router.navigateToRoute('home');
+      return;
+    }
   }
 
   fileSelected(selected_files) {
@@ -32,6 +40,11 @@ export class NewDocument {
     this.document_file = document_file.files[0];
     this.document.name = this.name;
     this.document.url = this.url;
+    //url treatment: removing heading "/" and replacing \ characters if any
+    if (this.document.url.startsWith("/")) {
+      this.document.url = this.document.url.substring(1);
+      this.document.url = this.document.url.replaceAll("\\", "/");
+    }
     this.document.file_name = this.document_file.name;
     this.document.file_type = this.document_file.type;
     this.document.file_uploaded = this.document_file;
@@ -42,7 +55,6 @@ export class NewDocument {
   }
 
   async create(){
-    this.current_user = new UserDto("3", "Saul", "Propylon2022");
     this.error_send = null;
     this.success_send = null;
     this.warning_send = null;
@@ -70,7 +82,7 @@ export class NewDocument {
 
     console.log(`Sending File: ${this.document.file_uploaded.name}`);
 
-    var res = await this.sendNewDocument(this.current_user.id, this.document);
+    var res = await this.sendNewDocument(this.user_handler.user_id, this.document);
 
     this.success_send = res == "SUCCESS" ? "Document successfully sent!": null;
     this.error_send = res.startsWith("ERROR") ? res: null;

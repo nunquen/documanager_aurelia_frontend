@@ -14,11 +14,12 @@ import { UserDto } from './backend/dtos/user-dto';
 import { AuthService } from './services/auth-service';
 import { login } from './auth/login';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { UserHandler } from './auth/user_handler';
 
 require('bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
 
-@inject(AuthService, EventAggregator, User, Document)
+@inject(AuthService, EventAggregator, User, Document, UserHandler)
 export class App {
   /**
       Array of routes that'll be injected in the </router-view> element
@@ -28,13 +29,14 @@ export class App {
       moduleId: maps the component we want to show
       title: Will be combined with config.title -> Home | Docu router
   */
-  constructor(AuthService, EventAggregator, User, Document){
+  constructor(AuthService, EventAggregator, User, Document, UserHandler){
     this.User = User;
     this.users = [];
     this.Document = Document;
     this.documents = [];
     this.auth_service = AuthService;
     this.ea = EventAggregator;
+    this.user_handler = UserHandler;
   }
 
   attached() {
@@ -96,7 +98,9 @@ export class App {
     this.error = null;
     this.auth_service.logout().then( data => {
       console.log(`Logout result is: ${data.success}`);
-      this.ea.publish('user', null);
+      this.user_handler.user_name = null;
+      this.user_handler.user_id = null;
+      this.user_handler.user_password = null;
       this.router.navigateToRoute('home');
     }).catch(error => {
       this.error = error.message;
