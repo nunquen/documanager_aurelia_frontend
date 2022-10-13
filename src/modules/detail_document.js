@@ -103,7 +103,7 @@ export class DetailDocument {
   }
 
   add_revision(document){
-    console.log(`TODO: Adding a new revision for document ${document.name}`)
+    this.router.navigateToRoute(`new_revision`, { document_id: document.id});
   }
 
   loadDocumentByIdJson(document_id){

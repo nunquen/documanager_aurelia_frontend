@@ -32,5 +32,6 @@ export class RevisionDto{
         this.file_uploaded = file_uploaded_b;
         this.created_at = created_at_dt;
         this.modified_at = modified_at_dt;
-    }    
+    }
+
 }

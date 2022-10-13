@@ -72,7 +72,7 @@ export class ListDocuments {
   }
 
   add_document(current_user){
-    console.log(`TODO: Adding a new document for user ${current_user.name}`)
+    this.router.navigateToRoute(`new_document`);
   }
 
   loadDocumentsJson(user_id){

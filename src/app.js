@@ -3,6 +3,8 @@ import { Document } from "./services/document";
 import { Index } from "./index";
 import { inject } from 'aurelia-framework';
 import { ListDocuments } from './modules/list_documents'
+import { NewDocument } from './modules/new_document'
+import { NewRevision } from './modules/new_revision'
 import { Doc } from "./modules/doc";
 import { DetailDocument } from './modules/detail_document'
 import { moment } from "../node_modules/moment/moment";
@@ -56,6 +58,7 @@ export class App {
       { route: 'docs/:url', name: 'docs', moduleId:'modules/doc', title:'View Documents' },
       { route: 'detail_document', name: 'detail_document', moduleId:'modules/detail_document', title:'Document detail' },
       { route: 'new_document', name: 'new_document', moduleId:'modules/new_document', title:'New Document' },
+      { route: 'new_revision', name: 'new_revision', moduleId:'modules/new_revision', title:'New Revision' },
     ]);
   }
   
@@ -73,9 +76,7 @@ export class App {
         this.users[i]["name"],
         this.users[i]["password"]);
 
-      
-      this.user_list.push(user);
-      
+      this.user_list.push(user);      
     }
   }
 

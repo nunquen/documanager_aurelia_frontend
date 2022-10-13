@@ -11,16 +11,16 @@ export class DocumentDto{
     revisions;
 
     constructor(
-        id,
-        file_path_s,
-        file_name_s,
-        file_type_s,
-        name_s,
-        url_s,
-        file_uploaded_b,
-        created_at_dt,
-        modified_at_dt,
-        revisions_i)
+        id=null,
+        file_path_s=null,
+        file_name_s=null,
+        file_type_s=null,
+        name_s=null,
+        url_s=null,
+        file_uploaded_b=null,
+        created_at_dt=null,
+        modified_at_dt=null,
+        revisions_i=0)
     {
         this.id = id;
         this.file_path = file_path_s;
@@ -33,5 +33,16 @@ export class DocumentDto{
         this.modified_at = modified_at_dt;
         this.revisions = revisions_i;
         this.revision_list = [];
+    }
+
+    async to_json(){
+        return {
+            'id': this.id,
+            'file_path_s': this.file_path,
+            'file_type_s': this.file_type,
+            'name_s': this.name,
+            'url_s': this.url,
+            'file_uploaded_b': this.file_uploaded,
+        }
     }
 }

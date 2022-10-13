@@ -1,0 +1,32 @@
+<template>
+  <div class="container">
+      <div class="alert alert-danger" if.bind="error_send">
+        ${ error_send }
+      </div>
+      <div class="alert alert-success" if.bind="success_send">
+        ${ success_send }
+      </div>
+      <div class="alert alert-warning" if.bind="warning_send">
+        ${ warning_send }
+      </div>
+      <form submit.delegate="create()">
+          <h1 style="color:rgb(0, 96, 205)">New Document</h1>
+          <br>
+          <div class="justify-content-center">
+              <div class="mb-3">
+                  <label for="document_name" class="form-label"><b>Name</b></label>
+                  <input value.bind="name" type="text" class="form-control" id="document_name" value="test_name">
+              </div>
+              <div class="mb-3">
+                  <label for="document_url" class="form-label"><b>Publishing url</b></label>
+                  <input value.bind="url" type="text" class="form-control" id="document_url" value="test_url">
+              </div>
+              <div class="mb-3">
+                <label for="document_file" class="form-label"><b>Upload file</b></label>
+                <input value.bind="file" type="file" class="form-label" id="document_file" files.bind="selected_files" change.delegate="fileSelected(selected_files)"></input>
+              </div>
+              <button type="submit" class="btn btn-primary">Publish document</button>
+          </div>
+      </form>
+  </div>
+</template>
